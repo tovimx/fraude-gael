@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Seguridad - Educación Anti-Fraude</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Pantalla inicial de "hackeo" */
+        .hack-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .glitch {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            color: #fff;
+            letter-spacing: 5px;
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% {
+                text-shadow: 
+                    0.05em 0 0 rgba(255, 0, 0, .75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, .75),
+                    0.025em 0.05em 0 rgba(0, 0, 255, .75);
+            }
+            15% {
+                text-shadow: 
+                    0.05em 0 0 rgba(255, 0, 0, .75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, .75),
+                    0.025em 0.05em 0 rgba(0, 0, 255, .75);
+            }
+            16% {
+                text-shadow: 
+                    -0.05em -0.025em 0 rgba(255, 0, 0, .75),
+                    0.025em 0.025em 0 rgba(0, 255, 0, .75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, .75);
+            }
+        }
+
+        .warning-text {
+            color: #ff0000;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .loading-bar {
+            width: 80%;
+            height: 30px;
+            background: #111;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #0f0;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #0f0, #0a0);
+            animation: loading 3s ease-out;
+            width: 100%;
+        }
+
+        @keyframes loading {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        .scroll-indicator::after {
+            content: '⬇ SCROLL PARA CONTINUAR ⬇';
+            color: #0f0;
+            font-size: 1.2rem;
+        }
+
+        /* Sección de revelación */
+        .reveal-section {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #000 0%, #111 50%, #222 100%);
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fake-reveal {
+            font-size: 5rem;
+            color: #0f0;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .explanation {
+            max-width: 800px;
+            font-size: 1.5rem;
+            color: #fff;
+            line-height: 1.8;
+            animation: fadeIn 2s ease-out 0.5s both;
+        }
+
+        /* Sección educativa */
+        .education-section {
+            background: #1a1a1a;
+            padding: 4rem 2rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3rem;
+            color: #0f0;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .fraud-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .fraud-card {
+            background: #2a2a2a;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #0f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .fraud-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .fraud-card h3 {
+            color: #0f0;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .fraud-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .tips-section {
+            background: #0a0a0a;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            border-radius: 20px;
+            border: 3px solid #0f0;
+        }
+
+        .tips-list {
+            list-style: none;
+            font-size: 1.2rem;
+        }
+
+        .tips-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+            color: #fff;
+        }
+
+        .tips-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #0f0;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #666;
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 2px solid #0f0;
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            
+            .fake-reveal {
+                font-size: 3rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla inicial de "hackeo" -->
+    <section class="hack-screen" id="hackScreen">
+        <canvas class="matrix-bg" id="matrix"></canvas>
+        <div class="glitch">ACCESO DETECTADO</div>
+        <div class="warning-text">⚠️ SISTEMA COMPROMETIDO ⚠️</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Sección de revelación -->
+    <section class="reveal-section">
+        <h1 class="fake-reveal">¡ES FALSO! 😊</h1>
+        <p class="explanation">
+            <strong>NO has sido hackeado.</strong><br><br>
+            Esta es una demostración educativa para mostrarte cómo los estafadores 
+            utilizan el miedo y la urgencia para engañar a las personas. Si esto 
+            fuera real, podrías haber entrado en pánico y tomado decisiones apresuradas.
+        </p>
+    </section>
+
+    <!-- Sección educativa -->
+    <section class="education-section">
+        <div class="container">
+            <h2>¿Qué son los Fraudes Digitales?</h2>
+            
+            <div class="fraud-types">
+                <div class="fraud-card">
+                    <h3>Phishing</h3>
+                    <p>
+                        Técnica donde los estafadores se hacen pasar por entidades 
+                        confiables para robar información personal, contraseñas o 
+                        datos bancarios mediante correos o sitios web falsos.
+                    </p>
+                </div>
+                
+                <div class="fraud-card">
+                    <h3>Scareware</h3>
+                    <p>
+                        Software malicioso que asusta a los usuarios haciéndoles 
+                        creer que su dispositivo está infectado o comprometido, 
+                        para que compren software innecesario o revelen información.
+                    </p>
+                </div>
+                
+                <div class="fraud-card">
+                    <h3>Estafas con QR</h3>
+                    <p>
+                        Códigos QR maliciosos que redirigen a sitios fraudulentos 
+                        o descargan malware. Siempre verifica la fuente antes de 
+                        escanear un código QR.
+                    </p>
+                </div>
+                
+                <div class="fraud-card">
+                    <h3>Ingeniería Social</h3>
+                    <p>
+                        Manipulación psicológica para obtener información confidencial. 
+                        Los estafadores explotan emociones como el miedo, la urgencia 
+                        o la codicia.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tips-section">
+                <h2>Cómo Protegerte</h2>
+                <ul class="tips-list">
+                    <li>Nunca proporciones información personal o bancaria por correo o mensajes</li>
+                    <li>Verifica siempre la URL del sitio web antes de ingresar datos</li>
+                    <li>Desconfía de mensajes que generen urgencia o miedo</li>
+                    <li>Mantén actualizado tu software de seguridad</li>
+                    <li>No escanees códigos QR de fuentes desconocidas</li>
+                    <li>Si algo parece demasiado bueno para ser verdad, probablemente lo sea</li>
+                    <li>Educa a familiares y amigos sobre estos riesgos</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer con disclaimer -->
+    <footer>
+        <div class="disclaimer">
+            <p>
+                <strong>AVISO IMPORTANTE:</strong><br>
+                Esta página web ha sido creada únicamente con fines educativos y de práctica. 
+                No tiene fines comerciales ni de monetización. Su propósito es experimentar 
+                con diseño, desarrollo web y mejora de habilidades técnicas.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Efecto Matrix en el canvas
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Auto-scroll suave después de 5 segundos
+        setTimeout(() => {
+            document.querySelector('.reveal-section').scrollIntoView({ behavior: 'smooth' });
+        }, 5000);
+
+        // Scroll manual
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.reveal-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Ajustar canvas al cambiar tamaño
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
